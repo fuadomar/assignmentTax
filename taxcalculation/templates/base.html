@@ -1,0 +1,36 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}{%endblock %}</title>
+    <link href="{% static "css/base.css" %}" rel="stylesheet">
+</head>
+<body>
+    <div id="header">
+        <span class="logo"><a href="{% url 'taxcalculation:home' %}">Tax Magician</a></span>
+            <ul class="menu">
+                <li {% if section == "home" %}class="selected"{% endif %}>
+                    <a href="{% url "taxcalculation:home" %}">All Files</a>
+                </li>
+                <li {% if section == "upload" %}class="selected"{% endif %}>
+                    <a href="{% url "taxcalculation:upload" %}">Upload</a>
+                </li>
+            </ul>
+    </div>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">
+                    {{ message|safe }}
+                        <a href="#" class="close">x</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <div id="content">
+        {% block content %}
+        {% endblock %}
+    </div>
+
+</body>
+</html>
