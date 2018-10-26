@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}Persons in File{% endblock %}
+
+{% block content %}
+    <h1>File name: {{ file.filename }}</h1>
+    <p>Created: {{ file.created }}</p>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Gender</th>
+            <th>Download</th>
+        </tr>
+        {% for person in persons %}
+            <tr>
+                <td>{{ person.name }}</td>
+                <td>{{ person.gender }}</td>
+                <td><a href="{{ person.get_absolute_url }}">pdf</a></td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+{% endblock %}

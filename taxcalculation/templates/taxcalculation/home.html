@@ -3,13 +3,19 @@
 {% block title %}All uploaded Files{% endblock %}
 
 {% block content %}
-    {% for file in files %}
-        <p>File Name:
-        <a href="{{ file.get_absolute_url }}" class="actionlist">
-            {{ file.filename }}
-        </a>
-        Created: {{ file.created }}
-        </p>
-    {% endfor %}
+    <h1>All uploaded Files</h1>
+    <table>
+        <tr>
+            <th>File name</th>
+            <th>Created</th>
+        </tr>
+        {% for file in files %}
+            <tr>
+                <td><a href="{{ file.get_absolute_url }}">{{ file.filename }}</a></td>
+                <td>{{ file.created }}</td>
+            </tr>
+        {% endfor %}
+
+    </table>
 
 {% endblock %}

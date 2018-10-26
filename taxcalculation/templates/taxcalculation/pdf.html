@@ -1,0 +1,114 @@
+{% load static %}
+{% load humanize %}
+<link href="{% static "css/pdf.css" %}" rel="stylesheet">
+
+<h1>Calculation of Tax on Salaries and Payment Certificate</h1>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Gender</th>
+    </tr>
+    <tr>
+        <td>{{ person.name }}</td>
+        <td>{{ person.gender }}</td>
+    </tr>
+
+</table>
+<br>
+<table>
+    <tr>
+        <th>Income Head</th>
+        <th>Gross Annual Income</th>
+        <th>Less Exempted</th>
+        <th>Total Taxable Income</th>
+    </tr>
+    <tr>
+        <td>Basic</td>
+        <td>{{ person.basic|intcomma }}</td>
+        <td></td>
+        <td>{{ person.basic|intcomma }}</td>
+    </tr>
+    <tr>
+        <td>House Rent Allowance</td>
+        <td>{{ person.house_rent|intcomma }}</td>
+        <td>{{ person.house_rent|intcomma }}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Transport Allowance</td>
+        <td>{{ person.transport|intcomma }}</td>
+        <td>{{ person.transport|intcomma }}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Medical</td>
+        <td>{{ person.medical|intcomma }}</td>
+        <td>{{ person.medical|intcomma }}</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Variable pay</td>
+        <td>{{ person.variable_pay|intcomma }}</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>Bonus</td>
+        <td>{{ person.bonus|intcomma }}</td>
+        <td></td>
+        <td>{{ person.bonus|intcomma }}</td>
+    </tr>
+    <tr>
+        <td>Provident Fund - company contribution</td>
+        <td>{{ person.pf|intcomma }}</td>
+        <td></td>
+        <td>{{ person.pf|intcomma }}</td>
+    </tr>
+    <tr>
+        <td>Total Annual Income</td>
+        <td>{{ person.total_income|intcomma }}</td>
+        <td>{{ person.get_total_less_exempted|intcomma }}</td>
+        <td><b>{{ person.get_total_taxable_income|intcomma }}</b></td>
+    </tr>
+    {% if error %}
+        <tr>
+            <td>Error</td>
+            <td>Round error in total income</td>
+            <td></td>
+            <td></td>
+        </tr>
+    {% endif %}
+</table>
+
+<br>
+
+<table>
+    <tr>
+        <th>Current Rate</th>
+        <th>Parameter</th>
+        <th>Taxable Income</th>
+        <th>Individual Tax Liability</th>
+        <th></th>
+        <th>###</th>
+    </tr>
+    {% for row in person.individual_tax_reliability_list %}
+        <tr>
+            {% for col in row %}
+                {% if forloop.last %}
+                    <td>     </td>
+                    <td>{{ col|intcomma }}</td>
+                {% else %}
+                    <td>{{ col|intcomma }}</td>
+                {% endif %}
+
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    <tr>
+        <td><b>Total</b></td>
+        <td></td>
+        <td></td>
+        <td><b>{{ person.total_individual_tax_liability_list }}</b></td>
+    </tr>
+
+</table>

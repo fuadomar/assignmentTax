@@ -7,5 +7,6 @@ app_name = 'taxcalculation'
 urlpatterns = [
     path('', views.home, name='home'),
     path('upload/', views.upload, name='upload'),
-    path('file/<int:id>/',views.file_detail, name='file_detail')
+    path('file/<int:id>/',views.file_detail, name='file_detail'),
+    path('person/<int:id>/', views.generate_individual_pdf, name='individual_pdf'),
 ]

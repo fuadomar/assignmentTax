@@ -1,0 +1,28 @@
+h1, h2, h3, h4, h5 , h6 { font-family: 'Muli', sans-serif; font-weight:normal; }
+
+h1 {
+    border-bottom:1px solid #bbb;
+    padding:0 0 10px 0;
+    margin:10px 0 20px 0;
+}
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+th{
+    text-align: center;
+    padding: 8px;
+    font-style: oblique;
+}
+
+td {
+    text-align: right;
+}
+
+td:first-child {
+    text-align: left;
+}​
+
