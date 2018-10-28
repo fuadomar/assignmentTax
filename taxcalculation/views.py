@@ -1,3 +1,4 @@
+import datetime
 import io
 import zipfile
 
@@ -60,22 +61,30 @@ def show_individual_pdf(request, id):
         messages.error(request, 'Something went Wrong. Can not show tax details for' + p.name)
         return HttpResponseRedirect(reverse("taxcalculation:file_detail", args=[p.file_id]))
 
-    return utils.PdfRender.getPdfResponse("taxcalculation/pdf.html", {'person': person})
+    pdf=utils.PdfRender.getPdf_xhtml2pdf("taxcalculation/pdf.html", {'person': person})
+    pdf=pdf.getvalue()
+    #pdf=utils.PdfRender.getPdf_weasyprint("taxcalculation/pdf.html", {'person': person})
+    return  HttpResponse(pdf, content_type='application/pdf')
+
 
 
 def download_all_pdf(request, id):
-    print('asche')
     file = get_object_or_404(File, id=id)
     ps = Person.objects.filter(file=file)
 
     b = io.BytesIO()
     zf = zipfile.ZipFile(b, "w")
+
     for p in ps:
         person = Output(p)
-        pdf = utils.PdfRender.getPdf("taxcalculation/pdf.html", {'person': person})
-        zf.writestr(person.name + ".pdf", pdf.getvalue())
+        a = datetime.datetime.now()
+        pdf = utils.PdfRender.getPdf_xhtml2pdf("taxcalculation/pdf.html", {'person': person})
+        pdf=pdf.getvalue()
+        #pdf = utils.PdfRender.getPdf_weasyprint("taxcalculation/pdf.html", {'person': person})
+        print("pdf" + str(datetime.datetime.now() - a))
+        zf.writestr(person.name + ".pdf", pdf)
 
-    print(zf.namelist())
+    #print(zf.namelist())
     zf.filename = file.get_filename()
     zf.close()
 

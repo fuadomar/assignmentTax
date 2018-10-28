@@ -24,7 +24,7 @@ class Output:
         self.total_individual_tax_liability_list = sum(row[3] for row in self.individual_tax_reliability_list)
 
     def magic(self, total, bonus, transport, pf):
-        print(bonus)
+
 
         def calculateTotal(b):
             return pf + bonus + transport + min(300000, int(b / 2)) + min(120000, int(b * .1)) + b
@@ -69,7 +69,7 @@ class Output:
             ans.append([rate, row[1], taxableIncome, individualTaxLiability, totalTaxableIncome - taxableIncome])
 
             totalTaxableIncome -= min(amount, totalTaxableIncome)
-        print(ans)
+
         return ans
 
     def get_total_less_exempted(self):
