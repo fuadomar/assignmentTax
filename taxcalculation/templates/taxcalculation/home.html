@@ -11,7 +11,7 @@
         </tr>
         {% for file in files %}
             <tr>
-                <td><a href="{{ file.get_absolute_url }}">{{ file.filename }}</a></td>
+                <td><a href="{{ file.get_absolute_url }}">{{ file.get_filename }}</a></td>
                 <td>{{ file.created }}</td>
             </tr>
         {% endfor %}

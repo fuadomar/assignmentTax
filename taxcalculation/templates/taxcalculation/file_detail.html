@@ -3,13 +3,13 @@
 {% block title %}Persons in File{% endblock %}
 
 {% block content %}
-    <h1>File name: {{ file.filename }}</h1>
+    <h1>File name: {{ file.get_filename }}</h1>
     <p>Created: {{ file.created }}</p>
     <table>
         <tr>
             <th>Name</th>
             <th>Gender</th>
-            <th>Download</th>
+            <th>Download<a href="{% url 'taxcalculation:download_zip' file.id %}"> (download all)</a></th>
         </tr>
         {% for person in persons %}
             <tr>

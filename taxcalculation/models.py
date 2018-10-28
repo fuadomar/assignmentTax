@@ -23,7 +23,7 @@ class File(models.Model):
     class Meta:
         ordering = ('-created',)
 
-    def filename(self):
+    def get_filename(self):
         return os.path.basename(self.upload.name)
 
     def get_absolute_url(self):

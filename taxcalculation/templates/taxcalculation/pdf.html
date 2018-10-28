@@ -1,6 +1,34 @@
 {% load static %}
 {% load humanize %}
-<link href="{% static "css/pdf.css" %}" rel="stylesheet">
+
+<html>
+<style type="text/css">
+h1, h2, h3, h4, h5 , h6 { font-family: 'Muli', sans-serif; font-weight:normal; }
+h1 {
+    border-bottom:1px solid #bbb;
+    padding:0 0 10px 0;
+    margin:10px 0 20px 0;
+}
+table {
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+th{
+    text-align: center;
+    padding: 8px;
+    font-style: oblique;
+}
+
+td{
+    padding-top: 3px;
+    text-align: center;
+}
+</style>
+<body>
+
 
 <h1>Calculation of Tax on Salaries and Payment Certificate</h1>
 <table>
@@ -94,21 +122,25 @@
     {% for row in person.individual_tax_reliability_list %}
         <tr>
             {% for col in row %}
+
                 {% if forloop.last %}
-                    <td>     </td>
-                    <td>{{ col|intcomma }}</td>
-                {% else %}
-                    <td>{{ col|intcomma }}</td>
+                    <td></td>
                 {% endif %}
 
+                <td>
+                    {{ col|intcomma }}
+                    {% if forloop.counter == 1 %}%{% endif %}
+                </td>
             {% endfor %}
         </tr>
     {% endfor %}
     <tr>
+        <td></td>
+        <td></td>
         <td><b>Total</b></td>
-        <td></td>
-        <td></td>
-        <td><b>{{ person.total_individual_tax_liability_list }}</b></td>
+        <td><b>{{ person.total_individual_tax_liability_list|intcomma }}</b></td>
     </tr>
 
 </table>
+</body>
+</html>
