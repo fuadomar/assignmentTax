@@ -20,9 +20,9 @@ class PdfRender:
 
     @staticmethod
     def getPdf_weasyprint(path: str, params: dict):
-        html_string = render_to_string(path,params)
+        html_string = render_to_string(path, params)
         html = HTML(string=html_string)
-        result=html.write_pdf()
+        result = html.write_pdf()
         if result:
             return result
         else:
