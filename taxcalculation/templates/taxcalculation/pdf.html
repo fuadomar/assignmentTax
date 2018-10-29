@@ -142,9 +142,27 @@ td:first-child {
         <td></td>
         <td></td>
         <td><b>Total</b></td>
-        <td><b>{{ person.total_individual_tax_liability_list|intcomma }}</b></td>
+        <td><b>{{ person.total_individual_tax_liability|intcomma }}</b></td>
     </tr>
 
 </table>
+
+<p>{{ person.emp_id }}</p>
+<p>{{ person.department }}</p>
+<p>{{ person.designation }}</p>
+<p>{{ person.joining_date }}</p>
+<p>{{ person.income_year }}</p>
+<p>{{ person.assessment_year }}</p>
+
+<p>{{ person.investment_allowed }}</p>
+<p>{{ person.investment_made }}</p>
+<p>{{ person.get_tax_rebate_due_to_investment }}</p>
+<p>{{ person.net_tax_payable }}</p>
+<p>{{ person.total_tax_to_be_deducted_by_nascenia }}</p>
+<p>{{ person.tax_deducted_by_nascenia }}</p>
+<p>{{ person.advance_tax }}</p>
+
+{{ person.chalan|linebreaks }}
+
 </body>
 </html>

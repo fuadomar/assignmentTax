@@ -12,6 +12,17 @@ class Output:
         self.pf = person.pf
         self.total_income = person.total_income
         self.bonus = person.fest_bonus
+
+        self.emp_id = person.emp_id
+        self.department = person.department
+        self.designation = person.designation
+        self.joining_date = person.joining_date
+        self.income_year = person.income_year
+        self.assessment_year = person.assessment_year
+
+        self.investment_made = person.investment_made
+        self.tax_deducted_by_nascenia = person.tax_deducted_by_nascenia
+
         self.transport = 30000
         self.basic = self.magic(self.total_income, self.bonus, self.transport, self.pf)
         self.house_rent = min(300000, int(self.basic / 2))
@@ -21,10 +32,15 @@ class Output:
                 self.basic + self.house_rent + self.transport + self.medical + self.bonus + self.pf)
 
         self.individual_tax_reliability_list = self.calculateIndividualTaxLiability()
-        self.total_individual_tax_liability_list = sum(row[3] for row in self.individual_tax_reliability_list)
+        self.total_individual_tax_liability = sum(row[3] for row in self.individual_tax_reliability_list)
+        self.investment_allowed = int(round(self.get_total_taxable_income() * .25))
+        self.net_tax_payable= self.total_individual_tax_liability-self.get_tax_rebate_due_to_investment()
+        self.total_tax_to_be_deducted_by_nascenia=self.net_tax_payable
+        self.advance_tax=min(0,self.total_tax_to_be_deducted_by_nascenia-self.tax_deducted_by_nascenia)
+
+        self.chalan=person.chalan
 
     def magic(self, total, bonus, transport, pf):
-
 
         def calculateTotal(b):
             return pf + bonus + transport + min(300000, int(b / 2)) + min(120000, int(b * .1)) + b
@@ -76,4 +92,11 @@ class Output:
         return self.house_rent + self.transport + self.medical
 
     def get_total_taxable_income(self):
-        return self.basic + self.bonus + self.pf
+        return self.total_income - self.get_total_less_exempted()
+
+    def get_tax_rebate_due_to_investment(self):
+        mn = min(self.investment_allowed, self.investment_made)
+        if mn <= 250000:
+            return int(round(mn * .15))
+        else:
+            return int(round(((mn - 250000) * .12) + (250000 * .15)))

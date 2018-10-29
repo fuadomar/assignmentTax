@@ -30,8 +30,7 @@ def upload(request):
             try:
                 new_file.populate_person_from_file()
             except Exception as e:
-                print(e)
-                print("Exception")
+                print("exception"+str(e))
                 new_file.delete()
                 messages.error(request, 'Upload FAIL! Please upload a valid file type with valid formation of data')
                 return HttpResponseRedirect(reverse("taxcalculation:upload"))
